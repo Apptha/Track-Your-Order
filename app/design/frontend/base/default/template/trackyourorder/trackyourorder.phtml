@@ -1,0 +1,172 @@
+<?php
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_TrackYourOrder
+ * @version     0.1.1
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2014 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ * */
+ 
+$enableTrackUrOrder = Mage::getStoreConfig('trackyourorder/general/activate_apptha_trackorder_enable');
+if(!Mage::getSingleton('customer/session')->isLoggedIn() && intval($enableTrackUrOrder) > 0){ ?>
+
+<div id='' class="trackorder-login">
+     <form  name="trackorder" id="trackorder" > 
+    <div class="track-your-order">
+         <h2><?php echo $this->__('Track your order'); ?></h2>
+         <span><?php echo $this->__('Enter E-Mail address and Order Id to track your order summary.'); ?></span>
+         <div id="trackerror-msg" class="error"></div>
+             <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+                    <ul class="form-list">
+                        <li>
+                            <label for="email" class="required"><em>*</em><?php echo $this->__('Email Address'); ?></label>
+                            <div class="input-box">
+                                <input type="text" name="email" value="" id="email" class="input-text required-entry validate-email" title="<?php echo $this->__('Email Address'); ?>">
+                                <div id="trackerror-email" class="track-validate-msg" style="display:none;"><i><?php echo $this->__('Enter email id in valid format (eg. john@example.com)'); ?></i></div>
+                            </div>
+                        </li>
+                        
+                        <li>
+                            <label for="orderid" class="required"><em>*</em><?php echo $this->__('Order ID'); ?></label>
+                            <div class="input-box">
+                                <input type="text" name="orderid" value="" id="orderid" class="input-text required-entry validate-number" title="<?php echo $this->__('Order Id'); ?>">
+                                <div id="trackerror-orderid" class="track-validate-msg" style="display:none"><i><?php echo $this->__('Enter valid Order ID'); ?></i></div>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <p class="requiredfields"><i>*</i> <?php echo $this->__('Required Fields');  ?></p>
+    
+                   <button type="submit" class="button" title="<?php echo $this->__('Track your order'); ?>" name="trackorder" id="trackorder-btn">
+                       <span><span><?php echo $this->__('Track your order'); ?></span></span>
+                   </button>
+                    
+                    <span id="trackdetail-loading1" class="trackdetail-loading"></span>      
+                    </div>
+  
+                 <div class="track-login">
+                     <b>  <?php echo $this->__('Already registered customers please click here'); ?></b>
+       <p> 
+           <button type="button" class="button" id="trackforce-login">
+               <span>
+                   <span><?php echo $this->__('Login'); ?></span>
+               </span>
+           </button>
+           </p>
+        
+
+    </div>
+         
+     </form>
+    
+
+    <div>
+            
+   
+    </div>
+   
+</div>
+ <div id="trackorder-cont"></div>
+<script type="text/javascript">
+  
+document.observe('dom:loaded', function() { 
+ function showTrackMessage(){
+      $$('.trackorder-statuspoint').each(function(e) {
+                e.observe("mouseover", function(event) {
+                    $$('.trackorder-details-div').each(Element.hide);
+                    var detailRel = $(this).readAttribute('id');
+                    $('trackorder-details-div' + detailRel).show();
+
+
+                });
+
+       });  
+ }           
+     
+        
+      
+            
+   $('trackforce-login').observe('click',function(){
+       window.location.href="<?php echo $this->getBaseUrl(); ?>customer/account/login/";
+   });        
+function validateEmail(cusEmailId){  //validate email
+           var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;   
+           return emailPattern.test(cusEmailId);
+} 
+function validateNum(n){
+    var orderIdPattern = /\d{9}/;   
+    return orderIdPattern.test(n);
+}
+$('trackorder-btn').observe('click',function(event){
+       Event.stop(event); 
+       var emailId = $F('email');
+       var OrderId = $F('orderid');
+       
+       $('trackerror-msg').update(" ");
+       
+       if(emailId != '' || OrderId!='' ){
+           
+         if(validateEmail(emailId) == false){
+            
+             $('trackerror-email').show();
+         }else if(OrderId ==''){
+            $('trackerror-email').hide();
+                $('trackerror-orderid').show();
+         }else{
+           $('trackerror-email').hide();
+           $('trackerror-orderid').hide();
+           $('trackerror-msg').update("");
+           $('trackorder-cont').update("");
+        new Ajax.Request('<?php echo $this->getUrl('trackyourorder/index/trackSummaryAjax'); ?>', {
+        method: "POST",
+        parameters: {orderid:OrderId,emailId:emailId},
+        
+        onLoading:function(request){ $('trackdetail-loading1').setStyle({ display: 'block'  }); },
+        onSuccess: function(data) { 
+      // Handle the response content...
+          
+            $('trackorder-cont').update(data.responseText);
+            $('trackdetail-loading1').setStyle({ display: 'none' });
+            
+                showTrackMessage();
+            }
+        });
+        }
+       }else{ 
+         
+         $('trackerror-msg').update("");
+         //$('trackerror-msg').update("Please Enter Email Id & Order Id to Track Your Order");
+         $('trackerror-email').show();
+         $('trackerror-orderid').show();
+       }
+         
+     });
+      
+ });
+
+</script>
+<?php } else {
+    
+   return Mage::helper('trackyourorder')->redirectingTo(); 
+} 

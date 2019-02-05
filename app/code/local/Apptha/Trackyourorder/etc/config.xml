@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_TrackYourOrder
+ * @version     0.1.1
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2014 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ * */
+ -->
+<config>
+    <modules>
+        <Apptha_Trackyourorder>
+            <version>0.1.1</version>
+        </Apptha_Trackyourorder>
+    </modules>
+      
+    <frontend>
+        <routers>
+            <trackyourorder>
+                <use>standard</use>
+                <args>
+                    <module>Apptha_Trackyourorder</module>
+                    <frontName>trackyourorder</frontName>
+                </args>
+            </trackyourorder>
+        </routers>
+        <layout>
+            <updates>
+                <trackyourorder>
+                    <file>trackyourorder.xml</file>
+                </trackyourorder>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Apptha_Trackyourorder>
+                    <files>
+                        <default>Trackyourorder.csv</default>
+                    </files>
+                </Apptha_Trackyourorder>
+            </modules>
+        </translate>
+    </frontend>
+   <adminhtml>
+         <translate>
+            <modules>
+                <Apptha_Trackyourorder>
+                    <files>
+                        <default>Trackyourorder.csv</default>
+                    </files>
+                </Apptha_Trackyourorder>
+            </modules>
+        </translate>
+   </adminhtml>  
+    <global>
+       
+   <blocks>
+      <sales>
+         <rewrite>
+           <order_history>apptha_trackyourorder_block_trackyourorder</order_history>          
+         </rewrite>  
+       
+         <rewrite>           
+           <order_recent>apptha_trackyourorder_block_trackrecentorder</order_recent>
+         </rewrite>
+        
+      </sales>
+       
+      
+</blocks>
+
+        <resources>
+            <trackyourorder_setup>
+                <setup>
+                    <module>Apptha_Trackyourorder</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </trackyourorder_setup>
+            <trackyourorder_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </trackyourorder_write>
+            <trackyourorder_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </trackyourorder_read>
+        </resources>
+        <blocks>
+            <trackyourorder>
+                <class>Apptha_Trackyourorder_Block</class>
+            </trackyourorder>
+	            
+        </blocks>
+        <helpers>
+            <trackyourorder>
+                <class>Apptha_Trackyourorder_Helper</class>
+            </trackyourorder>
+        </helpers>
+    
+       
+    
+
+    </global>
+   
+</config>

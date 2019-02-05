@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_TrackYourOrder
+ * @version     0.1.1
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2014 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ * */
+ -->
+<layout version="0.1.0">
+        
+    <default>
+        <reference name="top.links">
+            <action method="addLink" translate="label title" module="trackyourorder" ifconfig="trackyourorder/general/activate_apptha_trackorder_enable" > 
+                <label>Track your order</label>
+                <url>trackyourorder/index</url>
+                <title>Track your order</title>
+                <prepare>true</prepare>
+                <urlParams/>
+                <position>10</position>
+            </action>             
+        </reference> 
+        <reference name="head">
+             <action method="addCss"><stylesheet>trackyourorder/trackyourorder.css</stylesheet></action>  
+        </reference>
+            
+    </default>
+    <customer_account_index>
+        <!-- Mage_Sales -->
+        <!--remove name="customer_account_dashboard_top"/-->
+        <reference name="customer_account_dashboard">
+            <block type="sales/order_recent" name="customer_account_dashboard_top" as="top" template="trackyourorder/sales/order/recent.phtml"/>
+        </reference>
+
+    </customer_account_index>
+    
+      <trackyourorder_index_index>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="trackyourorder/trackyourorder" name="trackyourorder" template="trackyourorder/trackyourorder.phtml" />
+        </reference>
+    </trackyourorder_index_index>
+    <trackyourorder_index_trackordersummary>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="trackyourorder/trackyourorder" name="trackyourorder" template="trackyourorder/trackyourordersummary.phtml" />
+        </reference>
+    </trackyourorder_index_trackordersummary>
+    
+
+</layout> 

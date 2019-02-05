@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Apptha
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ *
+ * ==============================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category    Apptha
+ * @package     Apptha_TrackYourOrder
+ * @version     0.1.1
+ * @author      Apptha Team <developers@contus.in>
+ * @copyright   Copyright (c) 2014 Apptha. (http://www.apptha.com)
+ * @license     http://www.apptha.com/LICENSE.txt
+ *
+ * */
+ -->
+<config>
+    <tabs>
+        <apptha translate="label" module="trackyourorder">
+            <label>Apptha</label>
+            <sort_order>0</sort_order>
+        </apptha>
+    </tabs>
+    <sections>
+        <trackyourorder  translate="label" module="trackyourorder">                    
+            <label>Track your order</label>
+            <tab>apptha</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>0</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>            
+            <groups>
+                <general translate="label"> 
+                    <label>General Configuration</label>
+					  
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <activate_apptha_trackorder_enable translate="label">
+                            <label>Enable Track your order</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <validate>required-entry</validate>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Enable / Disable Track your order</comment>
+                        </activate_apptha_trackorder_enable>                          
+                    </fields>
+                </general>
+                <ordercomments translate="label"> 
+                    <label>Order Status Comments</label>
+					  
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <trackyourorder_pending translate="label">
+                            <label>Approval</label>
+                            <frontend_type>textarea</frontend_type>
+
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This comment will appear when Order has been placed and is just approved</comment>
+                        </trackyourorder_pending>
+                         
+                        <trackyourorder_processing translate="label">
+                            <label>Processing</label>
+                            <frontend_type>textarea</frontend_type>
+                          
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This comment will appear when Order is under processing</comment>
+                        </trackyourorder_processing>
+                        
+                         <trackyourorder_onhold translate="label">
+                            <label>On Hold</label>
+                            <frontend_type>textarea</frontend_type>
+                         
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This comment will appear when Order is placed but temporarily on hold</comment>
+                        </trackyourorder_onhold>
+                        
+                     <trackyourorder_cancel translate="label">
+                         <label>Cancel</label>
+                         <frontend_type>textarea</frontend_type>
+
+                         <sort_order>4</sort_order>
+                         <show_in_default>1</show_in_default>
+                         <show_in_website>1</show_in_website>
+                         <show_in_store>1</show_in_store>
+                         <comment>This comment will appear when  Order has been cancelled</comment>
+                     </trackyourorder_cancel>   
+                      
+                     <trackyourorder_ship translate="label">
+                         <label>Shipping</label>
+                         <frontend_type>textarea</frontend_type>
+
+                         <sort_order>6</sort_order>
+                         <show_in_default>1</show_in_default>
+                         <show_in_website>1</show_in_website>
+                         <show_in_store>1</show_in_store>
+                         <comment>This comment will appear when order is shipped</comment>
+                     </trackyourorder_ship>  
+                    </fields>
+                </ordercomments>
+            </groups>
+        </trackyourorder>
+    </sections>
+</config>
